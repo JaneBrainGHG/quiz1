@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Internetsucht Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { 
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 800px; 
+            margin: 20px auto; 
+            padding: 20px;
+            background: #f0f2f5;
+        }
+
+        .box {
+            background: white;
+            padding: 25px;
+            margin: 15px 0;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .option-label {
+            display: block;
+            padding: 12px 20px;
+            margin: 8px 0;
+            background: #f8f9fa;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-label:hover {
+            background: #e9ecef;
+        }
+
+        input[type="radio"] {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+
+        button {
+            width: 100%;
+            background: #007bff;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .correct { 
+            color: #28a745;
+            background: #d4edda;
+        }
+
+        .wrong { 
+            color: #dc3545;
+            background: #f8d7da;
+        }
+
+        #score {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Internetsucht Quiz</h1>
+
+    <div class="box">
+        <h2>1. Sind sich Leute den Gefahren im Internet bewusst</h2>
+        <label class="option-label">
+            <input type="radio" name="q1" value="1"> Ja
+        </label>
+        <label class="option-label">
+            <input type="radio" name="q1" value="2"> Nein
+        </label>
+        <div class="result">Richtige Antwort: Nein</div>
+    </div>
+
+    <div class="box">
+        <h2>2. Was kann die meisten Infos über einen bekommen?</h2>
+        <label class="option-label">
+            <input type="radio" name="q2" value="1"> IpLogger
+        </label>
+        <label class="option-label">
+            <input type="radio" name="q2" value="2"> FakeApps
+        </label>
+        <label class="option-label">
+            <input type="radio" name="q2" value="3"> Remote Access Trojans (rats)
+        </label>
+        <div class="result">Richtige Antwort: Remote Access Trojans (rats)</div>
+    </div>
+
+    <div class="box">
+        <h2>3. Was kann bei Internetsucht passieren?</h2>
+        <label class="option-label">
+            <input type="radio" name="q3" value="1"> verändert ablaufende Prozesse im Gehirn
+        </label>
+        <label class="option-label">
+            <input type="radio" name="q3" value="2"> Bessere Noten in der Schule
+        </label>
+        <label class="option-label">
+            <input type="radio" name="q3" value="3"> aktiver in Hobbys
+        </label>
+        <div class="result">Richtige Antwort: verändert ablaufende Prozesse im Gehirn</div>
+    </div>
+
+    <div class="box">
+        <h2>4. Internetsucht gilt...?</h2>
+        <label class="option-label">
+            <input type="radio" name="q4" value="1"> als eigenständige Krankheit
+        </label>
+        <label class="option-label">
+            <input type="radio" name="q4" value="2"> nicht als eigenständige Krankheit
+        </label>
+        <div class="result">Richtige Antwort: nicht als eigenständige Krankheit</div>
+    </div>
+
+    <button onclick="check()">Antworten prüfen</button>
+    <div id="score" class="box"></div>
+
+    <script>
+        function check() {
+            let score = 0;
+            const correct = {q1: "2", q2: "3", q3: "1", q4: "2", q5: "2"};
+            
+            for(let q in correct) {
+                let selected = document.querySelector(`input[name="${q}"]:checked`);
+                let result = selected?.value === correct[q];
+                if(result) score++;
+                
+                let box = document.querySelector(`input[name="${q}"]`).closest('.box');
+                let resultDiv = box.querySelector('.result');
+                resultDiv.style.display = 'block';
+                resultDiv.className = 'result ' + (result ? 'correct' : 'wrong');
+            }
+            
+            document.getElementById('score').innerHTML = `Du hast ${score} von 5 Fragen richtig beantwortet!`;
+        }
+    </script>
+</body>
+</html>
